@@ -60,6 +60,7 @@ router.post("/", async (req, res) => {
       });
       allrepos.push(...response.data.items);
     }
+
     const repos = allrepos.map((repo) => ({
       name: repo.name,
       fullname: repo.full_name,
@@ -69,8 +70,9 @@ router.post("/", async (req, res) => {
       language: repo.language,
       score: repo.score,
       open_issues: repo.open_issues_count,
-      owner_login: repo.owner.login,
+      owner: repo.owner,
     }));
+
     console.log("Final repos :", repos);
     return res.json(repos);
   } catch (error) {
