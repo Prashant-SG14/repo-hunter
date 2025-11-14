@@ -6,8 +6,8 @@ const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN,
 });
 
-router.get("/:repo", async (req, res) => {
-  const { repo } = req.params;
+router.post("/", async (req, res) => {
+  const { repo } = req.body;
   /*
   const repo = {
     owner: {
