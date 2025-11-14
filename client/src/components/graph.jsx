@@ -22,7 +22,7 @@ export default function CommitChart({ commitData }) {
     datasets: [
       {
         label: "Commits per Month",
-        data: commitData,
+        data: commitData.slice(-12),
         backgroundColor: "rgba(54, 162, 235, 0.6)",
         borderRadius: 6,
         borderColor: "#3b82f6",

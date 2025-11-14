@@ -5,15 +5,20 @@ export default function Card({ repo }) {
     console.log("Card clicked:", repo.fullname);
 
     try {
-      const res = await fetch(`http://localhost:5000/api/commits/${repo}`, {
-        method: "GET",
+      const res = await fetch(`http://localhost:5000/api/commits`, {
+        method: "POST",
         headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ repo: repo }),
       });
 
       if (res.ok) {
+        console.log(res.status);
+
         const commitData = await res.json();
+        console.log("commitData is " + commitData);
         const weeksPerMonth = 4; // rough average
-        const monthlyData = [];
+        let monthlyData = [];
+
         for (let i = 0; i < commitData.length; i += weeksPerMonth) {
           const monthSlice = commitData.slice(i, i + weeksPerMonth);
 
@@ -25,6 +30,10 @@ export default function Card({ repo }) {
 
           monthlyData.push(totalCommits);
         }
+        if (monthlyData.length == 0) {
+          monthlyData = Array(13).fill(0);
+        }
+        console.log(monthlyData);
       }
     } catch (error) {
       console.error(error);
