@@ -69,6 +69,7 @@ router.post("/", async (req, res) => {
       language: repo.language,
       score: repo.score,
       open_issues: repo.open_issues_count,
+      owner_login: repo.owner.login,
     }));
     console.log("Final repos :", repos);
     return res.json(repos);

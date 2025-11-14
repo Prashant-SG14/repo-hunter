@@ -3,13 +3,13 @@ import cors from "cors";
 import dotenv from "dotenv";
 import getRepos from "./routes/getRepos.js";
 import domain from "./routes/domain.js";
-
+import commits from "./routes/commits.js";
 const app = express();
 dotenv.config();
 app.use(express.json());
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "http://localhost:5173",
     credentials: true,
   }),
 );
@@ -19,6 +19,7 @@ app.get("/", (req, res) => {
 });
 app.use("/api/repos", getRepos);
 app.use("/api/domain", domain);
+app.use("/api/commits", commits);
 app.listen(5000, () => {
   console.log("Connected to PORT 5000");
 });
