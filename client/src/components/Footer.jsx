@@ -2,7 +2,7 @@ function Footer() {
     return (
         <div className="bg-[var(--bg-secondary)]  w-full text-text flex items-center justify-center h-[60px] shadow shadow-text fixed bottom-0 left-0 z-[1000]">
             <a
-                href="https://github.com/"
+                href="https://github.com/Prashant-SG14/repo-hunter"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 hover:underline transition-colors"
