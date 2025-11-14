@@ -20,6 +20,7 @@ function HomePage({
 }){
   return (
     <main className="mx-auto max-w-5xl flex w-full flex-col gap-10 px-4 py-12 ">
+<<<<<<< HEAD
       <DomainSelector
         domains={domains}
         selectedDomains={selectedDomains}
@@ -32,6 +33,9 @@ function HomePage({
         toggleTopic={toggleTopic}
         fetchRepos={fetchRepos}
       />
+=======
+      <DomainSelector setTopics={setTopics} />
+>>>>>>> 87a30eb (feat: Navigate to insights page on card click)
     </main>
   );
 }
