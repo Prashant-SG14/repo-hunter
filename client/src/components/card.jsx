@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { repoStorage } from "../utils/repoStorage";
 
 export default function Card({ repo }) {
+  const navigate = useNavigate();
+
+  // Saving Repos
+  const [isSaved, setIsSaved] = useState(false);
+  useEffect(() => {
+    setIsSaved(repoStorage.isRepoSaved(repo.fullname));
+  }, [repo.fullname]);
+
+
   const handleClick = () => {
-    console.log("Card clicked:", repo.fullname);
     //FUNCTIONALITY JAGGU/PRASHU
+    navigate(`/repo/${repo.owner_login}/${repo.name}`);
   };
 
   return (
@@ -36,12 +47,19 @@ export default function Card({ repo }) {
       <button
         className="mt-3 rounded-md bg-[var(--button-primary-bg)] px-3 py-1 text-sm text-white hover:bg-[var(--button-primary-hover)]"
         onClick={(e) => {
+
           e.stopPropagation();
-          console.log("Save clicked:", repo.fullname);
+          if (isSaved) {
+            repoStorage.removeRepo(repo.fullname);
+            setIsSaved(false);
+          } else {
+            repoStorage.saveRepo(repo);
+            setIsSaved(true);
+          }
         }}
       >
-        Save
-      </button>
-    </div>
+      {isSaved ? "Saved": "Save"}
+    </button>
+    </div >
   );
 }

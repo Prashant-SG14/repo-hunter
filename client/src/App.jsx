@@ -11,7 +11,6 @@ function HomePage({ topics, setTopics }) {
   return (
     <main className="mx-auto max-w-5xl flex w-full flex-col gap-10 px-4 py-12 ">
       <DomainSelector setTopics={setTopics} />
-      {/*Gotta add Card Components here*/}
     </main>
   );
 }
