@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { Routes, Route, useParams } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import "./App.css";
 import Topbar from "./components/Topbar";
 import Footer from "./components/Footer";
-import DomainSelector from "./components/DomainSelector";
 
+<<<<<<< HEAD
 function HomePage({
   domains,
   selectedDomains,
@@ -53,6 +53,10 @@ function Insights() {
     </main>
   );
 }
+=======
+import HomePage from "./pages/HomePage";
+import Insights from "./pages/Insights";
+>>>>>>> bd725c0 (refactor: Move HomePage and Insights components to separate files)
 
 function App() {
   const [domains, setDomains] = useState([]);
@@ -64,7 +68,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Fetch domains only once when the App loads
+  // Fetch domains only  when the App loads
   useEffect(() => {
     const fetchDomains = async () => {
       try {
