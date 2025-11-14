@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import TopicBox from "./TopicBox";
+
 
 function DomainSelector({ setTopics }) {
     const [domains, setDomains] = useState([]);
@@ -92,29 +94,7 @@ function DomainSelector({ setTopics }) {
                     </button>
                 ))}
             </div>
-
-            {topics.length > 0 && (
-                <div className="panel-animate w-full rounded-md border border-[var(--border-muted)] bg-[var(--bg-secondary)] p-5 text-left shadow-inner shadow-[var(--shadow)]/60 sm:p-6">
-                    <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
-                        <h3 className="text-lg font-semibold text-[var(--text-strong)] sm:text-xl">
-                            Topics from selected domains
-                        </h3>
-                        <span className="rounded-full border border-[var(--border-muted)] bg-[var(--bg-fourth)] px-3 py-1 text-xs font-medium uppercase tracking-wider text-[var(--text-tertiary)]">
-                            {topics.length} {topics.length === 1 ? "topic" : "topics"}
-                        </span>
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                        {topics.map((topic, idx) => (
-                            <span
-                                key={idx}
-                                className="topic-animate rounded-full border border-[var(--border-muted)] bg-[var(--bg-fourth)] px-3 py-1 text-sm text-[var(--text-tertiary)]"
-                            >
-                                {topic}
-                            </span>
-                        ))}
-                    </div>
-                </div>
-            )}
+            <TopicBox topics={topics} />
         </div>
     );
 }
