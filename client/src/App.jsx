@@ -17,7 +17,10 @@ function HomePage({
   error,
   toggleTopic,
   fetchRepos,
-}){
+  languages,
+  selectedLanguages,
+  toggleLanguage,
+}) {
   return (
     <main className="mx-auto max-w-5xl flex w-full flex-col gap-10 px-4 py-12 ">
       <DomainSelector
@@ -31,6 +34,9 @@ function HomePage({
         error={error}
         toggleTopic={toggleTopic}
         fetchRepos={fetchRepos}
+        languages={languages}
+        selectedLanguages={selectedLanguages}
+        toggleLanguage={toggleLanguage}
       />
     </main>
   );
@@ -60,7 +66,9 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Fetch domains only once when the App loads
+  const [languages, setLanguages] = useState([]);
+  const [selectedLanguages, setSelectedLanguages] = useState([]);
+
   useEffect(() => {
     const fetchDomains = async () => {
       try {
@@ -91,7 +99,7 @@ function App() {
           },
         );
         if (response.ok) {
-          const data = await response.json(); // its topics
+          const data = await response.json();
           setTopics((prev) => prev.filter((t) => !data.includes(t)));
         }
       } catch (error) {
@@ -111,9 +119,9 @@ function App() {
       );
 
       if (response.ok) {
-        const data = await response.json(); // Array of topics
+        const data = await response.json();
         setSelectedDomains((prev) => [...prev, domain]);
-        setTopics((prev) => [...prev, ...data]); // Update global topics
+        setTopics((prev) => [...prev, ...data]);
       } else {
         console.error(`Failed to fetch topics for ${domain}`);
       }
@@ -122,10 +130,15 @@ function App() {
     }
   };
 
-// Topic/Repo Functions (Moved from TopicBox) 
   const toggleTopic = (topic) => {
     setSelectedTopics((prev) =>
       prev.includes(topic) ? prev.filter((t) => t !== topic) : [...prev, topic],
+    );
+  };
+
+  const toggleLanguage = (language) => {
+    setSelectedLanguages((prev) =>
+      prev.includes(language) ? prev.filter((l) => l !== language) : [...prev, language]
     );
   };
 
@@ -145,14 +158,23 @@ function App() {
       if (!res.ok) throw new Error(`Server returned ${res.status}`);
       const data = await res.json();
       setRepos(data || []);
+      const langs = Array.from(new Set((data || []).map((r) => r.language).filter(Boolean)));
+      setLanguages(langs);
+      setSelectedLanguages([]);
     } catch (err) {
       console.error("Repo search failed:", err);
       setError("Repo search failed. See console for details.");
       setRepos([]);
+      setLanguages([]);
+      setSelectedLanguages([]);
     } finally {
       setLoading(false);
     }
   };
+
+  const filteredRepos = selectedLanguages.length
+    ? repos.filter((r) => selectedLanguages.includes(r.language))
+    : repos;
 
   return (
     <div className="flex min-h-screen flex-col bg-[var(--bg-primary)] text-[var(--text-primary)] antialiased">
@@ -168,11 +190,14 @@ function App() {
               topics={topics}
               handleDomainClick={handleDomainClick}
               selectedTopics={selectedTopics}
-              repos={repos}
+              repos={filteredRepos}
               loading={loading}
               error={error}
               toggleTopic={toggleTopic}
               fetchRepos={fetchRepos}
+              languages={languages}
+              selectedLanguages={selectedLanguages}
+              toggleLanguage={toggleLanguage}
             />
           }
         />

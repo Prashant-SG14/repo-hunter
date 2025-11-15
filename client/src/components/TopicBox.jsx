@@ -54,26 +54,10 @@ function TopicBox({
                     })}
                 </div>
 
-                {/*error*/}
                 {error && (
                     <div className="mt-3 text-sm text-red-500">{error}</div>
                 )}
             </div>
-
-            {/*repo results*/}
-            {repos.length > 0 && (
-                <div className="mt-6 w-full rounded-md border border-[var(--border-muted)] bg-[var(--bg-secondary)] p-5 shadow-sm shadow-[var(--shadow)]/50">
-                    <h3 className="mb-4 text-lg font-semibold text-[var(--text-strong)]">
-                        Search Results ({repos.length})
-                    </h3>
-
-                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                        {repos.map((repo, idx) => (
-                            <Card key={idx} repo={repo} />
-                        ))}
-                    </div>
-                </div>
-            )}
         </>
     );
 }
