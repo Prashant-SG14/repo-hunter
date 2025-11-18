@@ -21,7 +21,6 @@ function App() {
 
   const [languages, setLanguages] = useState([]);
   const [selectedLanguages, setSelectedLanguages] = useState([]);
-  const [selectedRepo, setSelectedRepo] = useState([]);
 
   useEffect(() => {
     const fetchDomains = async () => {
@@ -157,7 +156,6 @@ function App() {
               languages={languages}
               selectedLanguages={selectedLanguages}
               toggleLanguage={toggleLanguage}
-              selectedrepo={setSelectedRepo}
             />
           }
         />

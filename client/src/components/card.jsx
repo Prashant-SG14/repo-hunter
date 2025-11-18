@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import * as clusterStorage from "../utils/clusterStorage";
 
-export default function Card({ repo, clusterName, onRemove, selectedrepo }) {
+export default function Card({ repo, clusterName, onRemove }) {
   const navigate = useNavigate();
   const [monthlyData, setMonthlyData] = useState([]);
   const [helpfulIssues, setHelpfulIssues] = useState([]);
@@ -28,25 +28,10 @@ export default function Card({ repo, clusterName, onRemove, selectedrepo }) {
 
   const handleClick = async () => {
     console.log("Card clicked:", repo.fullname);
-    selectedrepo(repo);
 
     // Saving Repos
 
     navigate(`/repo/${repo.owner.login}/${repo.name}`);
-    try {
-      const response = await fetch(`http://localhost:5000/api/issues`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ repo: repo }),
-      });
-      if (response.ok) {
-        const issues = await response.json();
-        setHelpfulIssues(issues);
-        console.log("issues", issues);
-      }
-    } catch (error) {
-      console.error(error);
-    }
   };
 
   const refreshMenuData = () => {

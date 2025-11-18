@@ -34,7 +34,7 @@ function Insights() {
 
             const totalCommits = monthSlice.reduce(
               (sum, week) => sum + week.total,
-              0,
+              0
             );
 
             months.push(totalCommits);
@@ -84,7 +84,7 @@ function Insights() {
       try {
         setLoadingDetails(true);
         const res = await fetch(
-          `http://localhost:5000/api/repo/${owner}/${repo}`,
+          `http://localhost:5000/api/repo/${owner}/${repo}`
         );
         if (res.ok) {
           const data = await res.json();
